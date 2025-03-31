@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', Tahoma, sans-serif;
+            background-color: #fef4e8;
+            margin: 0;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #e8aa33;
+        }
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #e8aa33;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Admin Dashboard</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Client Information</div>
+            <div class="card-body">
+                <table id="clientTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Complete Name</th>
+                            <th>Address 1</th>
+                            <th>Address 2</th>
+                            <th>Contact Number</th>
+                            <th>Alternative Contact</th>
+                            <th>Email Address</th>
+                            <th>Date of Visit</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            const clients = [
+                                ["John Doe", "123 Main St, Barangay 5", "Cityville, Province A", "123-456-7890", "987-654-3210", "johndoe@example.com", "2025-04-01"],
+                                ["Jane Smith", "456 Elm St, Barangay 3", "Townsville, Province B", "234-567-8901", "876-543-2109", "janesmith@example.com", "2025-04-02"],
+                                ["Alice Johnson", "789 Oak St, Barangay 8", "Villagetown, Province C", "345-678-9012", "765-432-1098", "alicej@example.com", "2025-04-03"],
+                                ["Bob Brown", "101 Pine St, Barangay 2", "Metropolis, Province D", "456-789-0123", "654-321-0987", "bobbrown@example.com", "2025-04-04"],
+                                ["Charlie White", "202 Cedar St, Barangay 6", "Countryside, Province E", "567-890-1234", "543-210-9876", "charliew@example.com", "2025-04-05"],
+                                ["Diane Green", "303 Birch St, Barangay 4", "Seaside, Province F", "678-901-2345", "432-109-8765", "dianeg@example.com", "2025-04-06"],
+                                ["Edward Black", "404 Maple St, Barangay 7", "Mountainview, Province G", "789-012-3456", "321-098-7654", "edwardb@example.com", "2025-04-07"],
+                                ["Fiona Blue", "505 Willow St, Barangay 9", "Lakeside, Province H", "890-123-4567", "210-987-6543", "fionab@example.com", "2025-04-08"],
+                                ["George Red", "606 Ash St, Barangay 10", "Hillsborough, Province I", "901-234-5678", "109-876-5432", "georger@example.com", "2025-04-09"],
+                                ["Hannah Yellow", "707 Spruce St, Barangay 11", "Sunset City, Province J", "012-345-6789", "098-765-4321", "hannahy@example.com", "2025-04-10"]
+                            ];
+                            
+                            clients.forEach(client => {
+                                document.write(`<tr>
+                                    <td>${client[0]}</td>
+                                    <td>${client[1]}</td>
+                                    <td>${client[2]}</td>
+                                    <td>${client[3]}</td>
+                                    <td>${client[4]}</td>
+                                    <td>${client[5]}</td>
+                                    <td>${client[6]}</td>
+                                    <td><button class="btn btn-primary btn-sm view-btn" data-bs-toggle="modal" data-bs-target="#viewModal">View</button></td>
+                                </tr>`);
+                            });
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #e8aa33; color: white;">
+                    <h5 class="modal-title" id="viewModalLabel">Client Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Complete Name:</strong> <span id="modalName"></span></p>
+                    <p><strong>Address 1:</strong> <span id="modalAddress1"></span></p>
+                    <p><strong>Address 2:</strong> <span id="modalAddress2"></span></p>
+                    <p><strong>Contact Number:</strong> <span id="modalContact"></span></p>
+                    <p><strong>Alternative Contact:</strong> <span id="modalAltContact"></span></p>
+                    <p><strong>Email Address:</strong> <span id="modalEmail"></span></p>
+                    <p><strong>Date of Visit:</strong> <span id="modalDate"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#clientTable').DataTable();
+
+            $('.view-btn').click(function() {
+                var row = $(this).closest('tr');
+                $('#modalName').text(row.find('td:nth-child(1)').text());
+                $('#modalAddress1').text(row.find('td:nth-child(2)').text());
+                $('#modalAddress2').text(row.find('td:nth-child(3)').text());
+                $('#modalContact').text(row.find('td:nth-child(4)').text());
+                $('#modalAltContact').text(row.find('td:nth-child(5)').text());
+                $('#modalEmail').text(row.find('td:nth-child(6)').text());
+                $('#modalDate').text(row.find('td:nth-child(7)').text());
+            });
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="click.js"></script>
+</body>
+</html>
