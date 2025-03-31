@@ -39,6 +39,20 @@
             color: white;
             font-weight: bold;
         }
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -118,7 +132,14 @@
             </div>
         </div>
     </div>
-
+    <button class="logout-btn" onclick="confirmLogout()">Logout</button>
+    <script>
+        function confirmLogout() {
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#clientTable').DataTable();
